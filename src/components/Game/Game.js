@@ -10,25 +10,35 @@ export default class Game extends React.Component {
       this.state = {
         history: [{
           squares: new Array(3).fill(null).map(() => new Array(3).fill(null)),
+          winner: {
+            value: null,
+            line: null,
+          },
         }],
         stepNumber: 0,
         xIsNext: true,
       };
     }
-      
+
   handleClick(i, j) {
-    const history = this.state.history.slice(0, this.state.stepNumber + 1);
-    const current = history[history.length - 1];
+    const slicedHistory = this.state.history.slice(0, this.state.stepNumber + 1);
+    const current = slicedHistory[slicedHistory.length - 1];
     const squares = current.squares.slice().map((e) => e.slice());
-    if (calculateWinner(squares) || squares[i][j]) {
+    
+    if (squares[i][j] || current.winner.value) {
       return;
     }
+
     squares[i][j] = this.state.xIsNext ? 'X' : 'O';
-    this.setState({
-      history: history.concat([{
+    const winner = calculateWinner(squares);
+    const newHistory = slicedHistory.concat([{
         squares: squares,
-      }]),
-      stepNumber: history.length,
+        winner: winner,
+      }]);
+
+    this.setState({
+      history: newHistory,
+      stepNumber: newHistory.length - 1,
       xIsNext: !this.state.xIsNext,
     });
   }
@@ -42,19 +52,20 @@ export default class Game extends React.Component {
   
   render() {
     const current = this.state.history[this.state.stepNumber];
-    //console.log(this.state.stepNumber, history);
-    //console.log(JSON.stringify(current, null, 4));
+    const winner = current.winner;
+    
     return (
       <div className="game">
         <div className="game-board">
           <Board 
-            squares={current.squares} 
+            squares={current.squares}
+            winner={winner}
             onClick={(i, j) => this.handleClick(i, j)}
           />
         </div>
         <div className="game-info">
           <Status
-            winner={calculateWinner(current.squares)}
+            winner={winner.value}
             xIsNext={this.state.xIsNext}
           />
           <MovesList

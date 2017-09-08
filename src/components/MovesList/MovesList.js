@@ -25,7 +25,7 @@ export default class MovesList extends React.Component {
                 'Move #' + move :
                 'Game start';
     
-            const className = (step === this.props.current) ?
+            const textWeight = (step === this.props.current) ?
                 'bold-text' :
                 'normal-text';
             
@@ -33,7 +33,7 @@ export default class MovesList extends React.Component {
                 <li key={move}>
                     <a
                         href="#"
-                        className={className}
+                        className={textWeight}
                         onClick={() => {
                             this.props.onClick(move)
                         }}

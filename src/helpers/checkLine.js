@@ -1,14 +1,10 @@
-import squareFromNumber from './squareFromNumber';
-
 export default function checkLine(squares, line) {
-    const [a, b, c] = line;
-    const ghettoBoundSquareFromNumber = (block) => squareFromNumber(squares, block);
-    if (
-        ghettoBoundSquareFromNumber(a) &&
-        ghettoBoundSquareFromNumber(a) === ghettoBoundSquareFromNumber(b) &&
-        ghettoBoundSquareFromNumber(a) === ghettoBoundSquareFromNumber(c)
+    let [a, b, c] = line;
+    if (squares[a.r][a.c] &&
+        squares[a.r][a.c] ===  squares[b.r][b.c] &&
+        squares[a.r][a.c] === squares[c.r][c.c]
     ) {
-        return squareFromNumber(squares, a);
+        return squares[a.r][a.c];
     }
     return null;
 }
