@@ -6,7 +6,7 @@
 
 - [x] Use React for UI.
 - [x] Use Redux for state management.
-- [ ] Make it real-time.
+- [ ] Make it multiplayer.
 - [ ] Add comments.
 
 ### Commands
