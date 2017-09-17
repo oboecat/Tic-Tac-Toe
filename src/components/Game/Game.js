@@ -10,7 +10,7 @@ class Game extends React.Component {
     const {
       current, 
       history, 
-      handleClick,
+      step,
       jumpTo
     } = this.props;
     const {winner} = current;
@@ -21,7 +21,7 @@ class Game extends React.Component {
           <Board
             squares={current.squares}
             winner={winner}
-            onClick={handleClick}
+            onClick={step}
           />
         </div>
         <div className="game-info">
@@ -40,7 +40,6 @@ class Game extends React.Component {
   }
 }
 
-
 export default connect((state) => {
   const { game } = state;
   const { history, stepIndex } = game;
@@ -51,7 +50,7 @@ export default connect((state) => {
   }
 }, (dispatch) => {
   return {
-    handleClick: (r, c) => dispatch(step(r,c)),
+    step: (r, c) => dispatch(step(r,c)),
     jumpTo: (step) => dispatch(jumpTo(step))
   }
 })(Game);

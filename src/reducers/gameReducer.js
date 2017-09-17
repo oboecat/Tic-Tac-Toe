@@ -34,7 +34,7 @@ function gameStep(game, action) {
     const {history, stepIndex} = game;
     const current = history[stepIndex];
 
-    if (current.winner.value) {
+    if (current.winner.value || current.squares[step.r][step.c]) {
         return game;
     }
 
